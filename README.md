@@ -79,7 +79,7 @@ All configurations exceed the 75% test accuracy target. Longer training and a la
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/<your-username>/sentimentscope-transformer.git
+git clone https://github.com/mcml1225/sentimentscope-transformer.git
 cd sentimentscope-transformer
 
 # 2. Create and activate a virtual environment
