@@ -53,14 +53,22 @@ Baseline configuration: `d_embed=128`, `layers_num=4`, `heads_num=4`, `head_size
 
 ## Results
 
-| Experiment       | d_embed | Layers | Epochs | Best Val. Acc. | Final Val. Acc. | Test Acc. |
-|------------------|--------:|-------:|-------:|---------------:|----------------:|----------:|
-| Baseline         | 128 | 4 | 3 | 77.96% | 77.96% | **76.56%** |
-| More epochs      | 128 | 4 | 5 | 78.04% | 78.04% | 76.68% |
-| Even more epochs | 128 | 4 | 8 | 80.04% | 78.80% | 77.10% |
-| Larger model     | 256 | 6 | 5 | 79.76% | 79.28% | **77.13%** |
+| Experiment                  | d_embed | Layers | Epochs | Best Val. Acc. | Final Val. Acc. | Test Acc. |
+|-----------------------------|--------:|-------:|-------:|---------------:|----------------:|----------:|
+| Baseline                    | 128 | 4 | 3 | 77.24% | 77.24% | **77.30%** |
+| More epochs (run 1)         | 128 | 4 | 5 | 79.20% | 79.20% | 77.55% |
+| More epochs (run 2)         | 128 | 4 | 5 | 79.28% | 79.28% | 76.52% |
+| Even more epochs            | 128 | 4 | 8 | 78.52% (epoch 5) | 77.64% | 76.54% |
+| Larger model                | 256 | 6 | 5 | 79.44% (epoch 4) | 78.60% | **77.57%** |
 
-All configurations exceed the 75% test accuracy target. Longer training and a larger model improve accuracy, but with diminishing returns (+0.57 pp from baseline to the larger model).
+All configurations exceed the 75% test accuracy target.
+
+- **Run-to-run variance:** the two 5-epoch runs use identical settings, yet their test accuracy differs by ~1 pp (77.55% vs 76.52%) because of random initialization and shuffling.
+- **Overfitting:** with 8 epochs, validation accuracy peaks at epoch 5 and then declines, ending with a lower test accuracy.
+- **Model size:** the larger model gives the best test accuracy (77.57%), but only +0.27 pp over the baseline — within the observed variance.
+- Fixing a random seed, averaging several runs and using early stopping would make these comparisons more reliable.
+
+The saved checkpoint (`sentimentscope_model.pt`) corresponds to the 5-epoch run 1 model (77.55% test accuracy).
 
 ### Key takeaways
 
